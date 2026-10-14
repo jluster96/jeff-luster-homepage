@@ -1,2 +1,2 @@
-# jluster96.github.io
+# Home
 Personal Site for Jeff Luster
