@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeff Luster</title>
+<meta name="description" content="Jeff Luster — data analyst, two-time founder, and startup advisor. LLM data workflows, investor analytics, markets, and a lifelong love of flight.">
+<meta property="og:title" content="Jeff Luster">
+<meta property="og:description" content="Data analyst, founder, and startup advisor.">
+<meta property="og:url" content="https://jeffluster.com">
+<meta name="theme-color" content="#0F1E33">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F1E33'/%3E%3Cellipse cx='16' cy='16' rx='12' ry='5' fill='none' stroke='%23F2A93B' stroke-width='2' transform='rotate(-24 16 16)'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23EEF2F6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0F1E33;      /* high-altitude navy */
+    --night-2: #172A44;
+    --paper: #F2F5F8;      /* cool overcast */
+    --ink: #142235;
+    --muted: #55657A;
+    --rule: #D3DCE6;
+    --amber: #F2A93B;      /* runway light */
+    --amber-ink: #A0620A;  /* amber dark enough for text on paper */
+    --sky: #8DB8DA;
+    --card: #FFFFFF;
+    --on-night: #E8EEF5;
+    --on-night-muted: #9FB0C4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0B1626;
+      --ink: #E4EBF3;
+      --muted: #97A7BA;
+      --rule: #22354F;
+      --amber-ink: #F2A93B;
+      --card: #12223A;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, sans-serif;
+    font-variation-settings: "wdth" 100;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration-color: var(--amber); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  a:hover { color: var(--amber-ink); }
+  :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: radial-gradient(120% 90% at 85% 10%, var(--night-2) 0%, var(--night) 60%);
+    color: var(--on-night);
+    position: relative;
+    overflow: hidden;
+  }
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 28px; font-size: 0.95rem;
+  }
+  .nav .mark { font-weight: 700; font-variation-settings: "wdth" 115; letter-spacing: 0.01em; text-decoration: none; }
+  .nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
+  .nav ul a { text-decoration: none; color: var(--on-night-muted); }
+  .nav ul a:hover { color: var(--on-night); }
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center; gap: 24px; padding: 72px 0 96px;
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(3.2rem, 9vw, 7.4rem);
+    line-height: 0.88;
+    font-weight: 800;
+    font-variation-settings: "wdth" 125;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span { display: block; font-variation-settings: "wdth" 62; font-weight: 300; color: var(--sky); letter-spacing: 0; }
+  .hero .lede {
+    margin: 32px 0 0; max-width: 34ch;
+    font-size: clamp(1.15rem, 2vw, 1.35rem); line-height: 1.45; color: var(--on-night);
+  }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px; font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border: 1.5px solid rgba(232,238,245,.28); color: var(--on-night);
+  }
+  .btn:hover { border-color: var(--amber); color: var(--on-night); }
+  .btn.primary { background: var(--amber); border-color: var(--amber); color: var(--night); }
+  .btn.primary:hover { background: #FFBE5C; color: var(--night); }
+  .btn svg { width: 17px; height: 17px; }
+
+  .orbit { width: 100%; max-width: 480px; justify-self: end; }
+  .orbit .path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.4s cubic-bezier(.6,.1,.2,1) .3s forwards; }
+  .orbit .craft { offset-path: path("M 40 330 C 140 120, 360 60, 440 150"); offset-distance: 0%; opacity: 0; animation: fly 2.4s cubic-bezier(.6,.1,.2,1) .3s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fly { 0% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .orbit .path { animation: none; stroke-dashoffset: 0; }
+    .orbit .craft { animation: none; offset-distance: 100%; opacity: 1; }
+  }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 88px 0; border-bottom: 1px solid var(--rule); }
+  section.block:last-of-type { border-bottom: 0; }
+  .block-grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+  .block-grid > h2 {
+    margin: 0; font-size: 1.6rem; line-height: 1.1; font-weight: 700;
+    font-variation-settings: "wdth" 112; position: sticky; top: 28px; align-self: start;
+  }
+  .prose { max-width: 66ch; }
+  .prose p { margin: 0 0 1.1em; }
+  .prose p:last-child { margin-bottom: 0; }
+  .big {
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem); line-height: 1.35; font-weight: 400;
+    max-width: 30ch; margin: 0 0 28px;
+  }
+
+  /* Experience: a real sequence, so a flight-path timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px;
+    border-left: 2px dashed var(--rule);
+  }
+  .leg { position: relative; padding-left: 40px; margin-bottom: 52px; }
+  .leg:last-child { margin-bottom: 0; }
+  .leg::before {
+    content: ""; position: absolute; left: 0; top: 8px; width: 16px; height: 16px;
+    border-radius: 50%; background: var(--paper); border: 3px solid var(--sky);
+  }
+  .leg.now::before { border-color: var(--amber); background: var(--amber); box-shadow: 0 0 0 6px rgba(242,169,59,.18); }
+  .leg header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+  .leg h3 { margin: 0; font-size: 1.3rem; font-weight: 700; font-variation-settings: "wdth" 108; }
+  .leg .when { color: var(--muted); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .leg .role { margin: 2px 0 14px; color: var(--muted); }
+  .leg .role strong { color: var(--ink); font-weight: 600; }
+  .leg ul { margin: 0; padding-left: 1.1em; max-width: 68ch; }
+  .leg li { margin-bottom: 8px; }
+  .leg li::marker { color: var(--amber-ink); }
+  .earlier { margin-top: 8px; color: var(--muted); }
+  .earlier p { margin: 0 0 6px; }
+  .earlier strong { color: var(--ink); font-weight: 600; }
+
+  /* Founder + projects */
+  .ventures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .venture {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 18px; padding: 28px;
+    display: flex; flex-direction: column;
+  }
+  .venture .yr { color: var(--muted); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .venture h3 { margin: 6px 0 10px; font-size: 1.75rem; font-weight: 800; font-variation-settings: "wdth" 118; line-height: 1.05; }
+  .venture p { margin: 0 0 14px; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+  .stack span { font-size: 0.82rem; padding: 3px 10px; border-radius: 999px; background: var(--paper); border: 1px solid var(--rule); color: var(--muted); }
+
+  .repos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .repos li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 24px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+  .repos h3 { margin: 0; font-size: 1.15rem; font-weight: 700; }
+  .repos h3 a { text-decoration: none; }
+  .repos h3 a:hover { text-decoration: underline; }
+  .repos p { margin: 4px 0 0; color: var(--muted); max-width: 64ch; grid-column: 1 / 2; }
+  .repos .lang { color: var(--muted); font-size: 0.9rem; white-space: nowrap; display: flex; align-items: center; gap: 7px; }
+  .repos .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .more { margin-top: 20px; }
+
+  /* Advising */
+  .helps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 36px; margin: 0; padding: 0; list-style: none; }
+  .helps li { padding-top: 14px; border-top: 2px solid var(--amber); }
+  .helps strong { display: block; font-size: 1.08rem; margin-bottom: 4px; }
+  .helps span { color: var(--muted); }
+
+  /* Interests */
+  .interests { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .interest { border-radius: 18px; padding: 30px 30px 0; position: relative; overflow: hidden; }
+  .interest h3 { margin: 0 0 10px; font-size: 1.5rem; font-weight: 800; font-variation-settings: "wdth" 115; }
+  .interest p { margin: 0; max-width: 40ch; position: relative; }
+  .interest.markets { background: var(--card); border: 1px solid var(--rule); }
+  .interest.sky { background: var(--night); color: var(--on-night); }
+  .interest.sky p { color: var(--on-night-muted); }
+  .interest { display: flex; flex-direction: column; }
+  .interest svg.deco { display: block; width: 100%; max-width: 320px; height: auto; margin: 24px 0 0 auto; pointer-events: none; }
+
+  .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .skills span { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--rule); font-size: 0.92rem; }
+
+  /* Footer */
+  footer { background: var(--night); color: var(--on-night); padding: 80px 0 40px; }
+  footer h2 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; font-variation-settings: "wdth" 120; line-height: 1; }
+  footer p { color: var(--on-night-muted); max-width: 46ch; margin: 0 0 28px; }
+  footer .fine { margin-top: 64px; font-size: 0.88rem; color: var(--on-night-muted); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; padding: 48px 0 64px; }
+    .orbit { justify-self: start; max-width: 340px; margin-top: 8px; }
+    .block-grid { grid-template-columns: 1fr; gap: 24px; }
+    .block-grid > h2 { position: static; }
+    .ventures, .interests, .helps { grid-template-columns: 1fr; }
+    section.block { padding: 64px 0; }
+    .nav ul { display: none; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 0 16px; }
+    .venture, .interest { padding: 22px; }
+    .repos li { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="mark" href="#top" id="top">Jeff Luster</a>
+      <ul>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#founder">Founder</a></li>
+        <li><a href="#advising">Advising</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#interests">Interests</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <h1>Jeff<span>Luster</span></h1>
+        <p class="lede">I turn messy data into decisions. Lead data analyst by day, two-time founder, and an advisor to early-stage teams.</p>
+        <div class="links">
+          <a class="btn primary" href="mailto:jeff.luster96@gmail.com">Email me</a>
+          <a class="btn" href="https://www.linkedin.com/in/jeffluster96" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="https://github.com/jluster96" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <svg class="orbit" viewBox="0 0 480 400" role="img" aria-label="A dashed climb path arcing upward across a field of stars, ending at a small craft">
+        <g fill="#E8EEF5">
+          <circle cx="70" cy="60" r="1.6" opacity=".7"/><circle cx="160" cy="34" r="1.2" opacity=".5"/>
+          <circle cx="300" cy="22" r="1.8" opacity=".8"/><circle cx="420" cy="54" r="1.2" opacity=".5"/>
+          <circle cx="250" cy="110" r="1" opacity=".5"/><circle cx="380" cy="250" r="1.4" opacity=".6"/>
+          <circle cx="450" cy="320" r="1" opacity=".4"/><circle cx="110" cy="190" r="1.1" opacity=".45"/>
+          <circle cx="210" cy="300" r="1.3" opacity=".4"/><circle cx="30" cy="140" r="1" opacity=".5"/>
+        </g>
+        <ellipse cx="240" cy="200" rx="215" ry="70" fill="none" stroke="#8DB8DA" stroke-opacity=".22" stroke-width="1.2" transform="rotate(-18 240 200)"/>
+        <ellipse cx="240" cy="200" rx="150" ry="46" fill="none" stroke="#8DB8DA" stroke-opacity=".14" stroke-width="1" transform="rotate(-18 240 200)"/>
+        <path d="M 0 372 H 480" stroke="#8DB8DA" stroke-opacity=".25" stroke-width="1"/>
+        <g fill="#F2A93B"><circle cx="20" cy="372" r="2.4"/><circle cx="50" cy="372" r="2.4"/><circle cx="80" cy="372" r="2.4" opacity=".7"/><circle cx="110" cy="372" r="2.4" opacity=".45"/></g>
+        <path class="path" d="M 40 330 C 140 120, 360 60, 440 150" fill="none" stroke="#F2A93B" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2 9"/>
+        <g class="craft">
+          <path d="M -12 0 L 10 -5 L 14 0 L 10 5 Z M -2 -3 L -8 -12 L -4 -12 L 4 -3 Z M -2 3 L -8 12 L -4 12 L 4 3 Z" fill="#E8EEF5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="block" aria-labelledby="about-h">
+    <div class="wrap block-grid">
+      <h2 id="about-h">About</h2>
+      <div class="prose">
+        <p class="big">Finance-trained, data-obsessed, and happiest somewhere between a SQL query and a pitch deck.</p>
+        <p>I lead investor-facing data work at HundredX, where I build the analytics and LLM workflows that turn tens of millions of customer feedback surveys into signals investors actually use. Before that, I spent two years in credit card and payments analytics at Argus (Verisk Financial, now TransUnion), advising some of the largest retail banks in the country.</p>
+        <p>Outside the day job I build things. I’ve founded two products, I advise early-stage founders on strategy and fundraising, and I write a lot of Python with AI tools on the side. I’m based in the New York City area. I studied finance at San Diego State, graduated magna cum laude, and still think a well-built model is a thing of beauty.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience" aria-labelledby="exp-h">
+    <div class="wrap block-grid">
+      <h2 id="exp-h">Experience</h2>
+      <ol class="timeline">
+        <li class="leg now">
+          <header><h3>HundredX</h3><span class="when">Oct 2021 – present</span></header>
+          <p class="role"><strong>Lead Data Analyst, Investor Solutions</strong> since Mar 2022, previously Data Product Analyst. Remote.</p>
+          <ul>
+            <li>Built and productized an LLM classification workflow for open-text survey responses, using dynamic prompt engineering, model experimentation, and pre/post-processing to correctly classify 95% of responses.</li>
+            <li>Developed consumer insights for corporate and investor clients from 20M+ feedback surveys across 6,000+ brands in 90 industries, using SQL, Python, and Tableau.</li>
+            <li>Backtested survey data against stock prices, financials, earnings estimates, and valuations, building end-to-end methodologies, proprietary metrics, and pipelines.</li>
+            <li>Made existing dashboards and analytics 5–10x faster by reworking queries and schemas, and shipped new reports and KPIs for product, engineering, sales, and data science.</li>
+            <li>Ran A/B and pre/post analyses on new data sources to protect data quality and client workflows.</li>
+          </ul>
+        </li>
+        <li class="leg">
+          <header><h3>Argus Information &amp; Advisory (Verisk Financial, now TransUnion)</h3><span class="when">Jun 2019 – Sep 2021</span></header>
+          <p class="role"><strong>Associate Manager, Portfolio Management Consulting &amp; Analytics</strong>, previously Associate. San Francisco.</p>
+          <ul>
+            <li>Linked bank card data with credit bureau datasets covering 150M+ consumers to build full card-wallet views and demographic segmentation.</li>
+            <li>Shaped product, risk, pricing, and marketing strategy for retail banks using roughly 95% of industry credit card and payments data.</li>
+            <li>Helped design new card products by analyzing rewards rates, balances, charge-offs, and risk segments across competitors.</li>
+            <li>Published monthly payments white papers and portfolio dashboards through COVID-19, and was a Chairman’s Award finalist.</li>
+          </ul>
+        </li>
+        <li class="leg">
+          <header><h3>Earlier</h3><span class="when">2017 – 2019</span></header>
+          <div class="earlier">
+            <p><strong>TorreyCove Capital Partners</strong>, Risk Management Analyst Intern: reconciled capital calls and distributions across $75B in AUM for 50+ institutional clients.</p>
+            <p><strong>GEICO</strong>, Business Leadership Intern: re-engineered claims processes to cut $500K in costs and lift customer satisfaction 11%, presented to senior management.</p>
+            <p><strong>Bandwidth Staffing (BSI.tv)</strong>, Head of Business Development: drove $500K in new revenue with a self-built prospect database and automated outreach. Also led business development at Kernel Ventures, a corporate staffing firm.</p>
+            <p><strong>Aztec Small Business Consulting</strong>, Project Manager: built valuation models and an exit plan, with recommendations to lift a client’s valuation 15%. First place in the program.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="founder" aria-labelledby="founder-h">
+    <div class="wrap block-grid">
+      <h2 id="founder-h">Founder</h2>
+      <div>
+        <p class="big">I’ve started two products from scratch, one social, one built on AI.</p>
+        <div class="ventures">
+          <article class="venture">
+            <span class="yr">2021</span>
+            <h3>Parti Cards</h3>
+            <p>Group greeting cards for the internet. An organizer creates a card, invites friends, family, or coworkers by email to add messages, photos, and videos, and Parti delivers the finished card on the day it matters. No video editing, no chasing down a montage.</p>
+            <p>I led the product from idea to working app, working with a team of developers on a full-stack build with scheduled delivery, themed cards, and Google and Facebook sign-in.</p>
+            <div class="stack"><span>MongoDB</span><span>Express</span><span>React</span><span>Node</span><span>Cloudinary</span><span>SendGrid</span></div>
+          </article>
+          <article class="venture">
+            <span class="yr">2025</span>
+            <h3>VibeScribe</h3>
+            <p>Voice-to-text for your whole desktop. Hold a hotkey in any app, talk, let go, and your words are transcribed locally with OpenAI’s Whisper and pasted where your cursor is.</p>
+            <p>I designed and built it end to end: global hotkeys, system tray app, model choice from tiny to large, mic selection, and a one-line Windows installer.</p>
+            <div class="stack"><span>Python</span><span>Whisper</span><span>PyTorch</span><span>uv</span><span>PyInstaller</span></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="advising" aria-labelledby="adv-h">
+    <div class="wrap block-grid">
+      <h2 id="adv-h">Startup advising</h2>
+      <div class="prose">
+        <p class="big">I help early-stage founders get from a good idea to a fundable company.</p>
+        <p>Having built products myself and spent years advising banks and investors with data, I work with founders on the parts that are hard to do alone. If you’re building something and want a second set of eyes, reach out.</p>
+        <ul class="helps">
+          <li><strong>Pitch decks</strong><span>Narrative, structure, and the numbers investors look for first.</span></li>
+          <li><strong>Company strategy</strong><span>Positioning, market sizing, and deciding what not to build.</span></li>
+          <li><strong>Fundraising</strong><span>Preparing for raises, investor conversations, and diligence.</span></li>
+          <li><strong>Metrics &amp; models</strong><span>KPIs, financial models, and data that backs up the story.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects" aria-labelledby="proj-h">
+    <div class="wrap block-grid">
+      <h2 id="proj-h">Open source</h2>
+      <div>
+        <ul class="repos">
+          <li>
+            <h3><a href="https://github.com/jluster96/PDF-Package-Analyzer" target="_blank" rel="noopener">PDF-Package-Analyzer</a></h3>
+            <span class="lang"><i class="dot" style="background:#3572A5"></i>Python</span>
+            <p>Tests every PDF in a folder against pypdf, PyMuPDF, and pdfplumber, then recommends the best library per file with JSON reports, timeouts for problem files, and a CLI.</p>
+          </li>
+          <li>
+            <h3><a href="https://github.com/jluster96/jeff-luster-homepage" target="_blank" rel="noopener">jeff-luster-homepage</a></h3>
+            <span class="lang"><i class="dot" style="background:#E34C26"></i>HTML</span>
+            <p>This site. One hand-written HTML file, hosted on GitHub Pages.</p>
+          </li>
+        </ul>
+        <p class="more">More on <a href="https://github.com/jluster96" target="_blank" rel="noopener">github.com/jluster96</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="interests" aria-labelledby="int-h">
+    <div class="wrap block-grid">
+      <h2 id="int-h">Off the clock</h2>
+      <div>
+        <div class="interests">
+          <article class="interest markets">
+            <h3>Markets</h3>
+            <p>I day trade and follow the stock market closely. It’s where my finance degree and data habit meet: reading earnings, testing ideas against the tape, and keeping score honestly.</p>
+            <svg class="deco" viewBox="0 0 300 120" aria-hidden="true">
+              <g stroke="var(--rule)" stroke-width="1"><path d="M0 100H300M0 70H300M0 40H300"/></g>
+              <g stroke-width="1.5">
+                <path d="M30 70V100" stroke="var(--sky)"/><rect x="25" y="78" width="10" height="16" fill="var(--sky)"/>
+                <path d="M60 60V96" stroke="var(--sky)"/><rect x="55" y="66" width="10" height="20" fill="var(--sky)"/>
+                <path d="M90 66V92" stroke="var(--amber)"/><rect x="85" y="70" width="10" height="14" fill="var(--amber)"/>
+                <path d="M120 44V84" stroke="var(--sky)"/><rect x="115" y="52" width="10" height="24" fill="var(--sky)"/>
+                <path d="M150 36V70" stroke="var(--sky)"/><rect x="145" y="40" width="10" height="20" fill="var(--sky)"/>
+                <path d="M180 42V66" stroke="var(--amber)"/><rect x="175" y="46" width="10" height="12" fill="var(--amber)"/>
+                <path d="M210 22V56" stroke="var(--sky)"/><rect x="205" y="28" width="10" height="20" fill="var(--sky)"/>
+                <path d="M240 14V40" stroke="var(--sky)"/><rect x="235" y="18" width="10" height="16" fill="var(--sky)"/>
+                <path d="M270 6V30" stroke="var(--sky)"/><rect x="265" y="10" width="10" height="14" fill="var(--sky)"/>
+              </g>
+            </svg>
+          </article>
+          <article class="interest sky">
+            <h3>Air &amp; space</h3>
+            <p>Planes, rockets, and everything that leaves the ground. I follow aviation and the new space industry, and I’ll always take the window seat.</p>
+            <svg class="deco" viewBox="0 0 300 140" aria-hidden="true">
+              <circle cx="250" cy="150" r="90" fill="#172A44"/>
+              <ellipse cx="250" cy="150" rx="130" ry="34" fill="none" stroke="#8DB8DA" stroke-opacity=".35" transform="rotate(-14 250 150)"/>
+              <path d="M40 120 C 110 110, 170 60, 230 30" fill="none" stroke="#F2A93B" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
+              <circle cx="232" cy="29" r="4" fill="#F2A93B"/>
+            </svg>
+          </article>
+        </div>
+        <div class="skills" aria-label="Tools I use">
+          <span>SQL</span><span>Python</span><span>Tableau</span><span>Apache Superset</span><span>Jinja</span><span>Claude</span><span>OpenAI API</span><span>Google Gen AI SDK</span><span>Excel</span><span>Lean Six Sigma Yellow Belt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Say hello</h2>
+    <p>Building something, raising a round, or want to talk markets or launches? I’m always up for a good conversation.</p>
+    <div class="links">
+      <a class="btn primary" href="mailto:jeff.luster96@gmail.com">jeff.luster96@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/jeffluster96" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/jluster96" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="fine">© <span id="yr">2026</span> Jeff Luster</p>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
